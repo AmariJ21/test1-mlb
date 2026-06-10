@@ -1,12 +1,6 @@
 [build]
   publish = "."
 
-[[redirects]]
-  # Remove trailing slashes (equivalent to vercel's trailingSlash: false)
-  from = "/*/"
-  to = "/:splat"
-  status = 301
-  force = true
 
 [[headers]]
   for = "/*"
