@@ -336,7 +336,11 @@
   // ── fetch team run averages ───────────────────────────────────────────────
   async function fetchTeamAvgs(teamId, season) {
     try {
-      const res = await fetch(`${MLB}/teams/${teamId}/stats?stats=gameLog&group=hitting&season=${season}&limit=10`)
+      const res = await fetch(
+  `${MLB}?endpoint=${encodeURIComponent(
+    `/teams/${teamId}/stats?stats=gameLog&group=hitting&season=${season}&limit=10`
+  )}`
+)
       const data = await res.json()
       const logs = (data.stats?.[0]?.splits || []).slice(-10).map(s => parseFloat(s.stat?.runs) || 0)
       const l5 = logs.slice(-5)
@@ -354,7 +358,11 @@
     const today = new Date().toISOString().split('T')[0]
     const season = new Date().getFullYear()
 
-    const res = await fetch(`${MLB}/schedule?sportId=1&date=${today}&hydrate=team,venue,linescore`)
+    const res = await fetch(
+  `${MLB}?endpoint=${encodeURIComponent(
+    `/schedule?sportId=1&date=${today}&hydrate=team,venue,linescore`
+  )}`
+)
     const data = await res.json()
     const games = (data.dates?.[0]?.games || []).filter(g => g.status?.abstractGameState !== 'Final')
 
