@@ -1,0 +1,25 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  # Remove trailing slashes (equivalent to vercel's trailingSlash: false)
+  from = "/*/"
+  to = "/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/mlb/*"
+  to = "/.netlify/functions/mlb-proxy/:splat"
+  status = 200
